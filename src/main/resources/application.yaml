@@ -1,0 +1,17 @@
+# 应用程序配置
+spring:
+  application:
+    name: spring-boot-jwt
+
+# 服务器配置
+server:
+  port: 8080
+
+# JWT配置
+jwt:
+  expiration: 86400000  # 24小时，单位：毫秒
+  issuer: lsh-jwt-auth
+  header: Authorization
+  token-prefix: Bearer
+  private-key-path: ${user.home}/jwt/private_key.pem
+  public-key-path: ${user.home}/jwt/public_key.pem
