@@ -3,12 +3,13 @@ package com.lsh.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -117,16 +118,21 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    /**
-     * 验证令牌
-     *
-     * @param token       令牌
-     * @param userDetails 用户详情
-     * @return 是否有效
-     */
-    public Boolean validateToken(String token, UserDetails userDetails) {
+
+    public Boolean validateToken(String token, String service) {
         final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(service) && !isTokenExpired(token));
+    }
+
+    public static void main(String[] args) {
+        JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
+        Map<String, Object> claims = Map.of("cilent_id", "account-transfers-ms");
+
+        String token = jwtTokenUtil.generateToken(claims, "account-transfers-ms");
+        System.out.println(token);
+        System.out.println(jwtTokenUtil.validateToken(token,"account-transfers-ms"));
+
+
     }
 
 

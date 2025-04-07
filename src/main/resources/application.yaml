@@ -13,5 +13,5 @@ jwt:
   issuer: lsh-jwt-auth
   header: Authorization
   token-prefix: Bearer
-  private-key-path: ${user.home}/jwt/private_key.pem
-  public-key-path: ${user.home}/jwt/public_key.pem
+  private-key-path: secrets/private_key.pem
+  public-key-path: secrets/public_key.pem

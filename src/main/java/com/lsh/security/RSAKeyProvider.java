@@ -14,11 +14,11 @@ import java.util.Base64;
 @Component
 public class RSAKeyProvider {
 
-    @Value("${jwt.private-key-path}")
-    private String privateKeyPath;
+    @Value("${jwt.private-key-path:secrets/private_key.pem}")
+    private String privateKeyPath = "secrets/private_key.pem";
 
-    @Value("${jwt.public-key-path}")
-    private String publicKeyPath;
+    @Value("${jwt.public-key-path:secrets/public_key.pem}")
+    private String publicKeyPath = "secrets/public_key.pem";
 
     private PrivateKey privateKey;
     private PublicKey publicKey;
@@ -72,5 +72,9 @@ public class RSAKeyProvider {
 
     public PublicKey getPublicKey() {
         return publicKey;
+    }
+
+    public static void main(String[] args) throws Exception {
+        new RSAKeyProvider().init();
     }
 }
